@@ -25,7 +25,7 @@ sin_3d = " -3D"
 
 alta_definicion = " (720 OR 1080 OR microhd)"
 
-__addon__ = xbmcaddon.Addon(id="script.pulsar.kickass")
+__addon__ = xbmcaddon.Addon(id="script.pulsar.kiasmulti")
 __proxy__ = __addon__.getSetting("url_proxy")
 __idioma__ = __addon__.getSetting("idioma_xml")
 use_screener = __addon__.getSetting("use_screener")
