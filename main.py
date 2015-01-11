@@ -40,8 +40,18 @@ PAYLOAD = json.loads(base64.b64decode(sys.argv[1]))
 def search(query):
     busqueda_completa = "%s" % query
     pagina_busqueda = __proxy__ + 'usearch/'
-    resp = provider.GET(pagina_busqueda, params={"q": busqueda_completa.encode('utf-8'),})
-    return provider.extract_magnets(resp.data)
+    
+    #   resp = provider.GET(pagina_busqueda, params={"q": busqueda_completa.encode('utf-8'),})
+    #return provider.extract_magnets(resp.data)
+    busqueda_completa = busqueda_completa.encode('utf-8')
+    provider.log.info(busqueda_completa)
+    if browser.open(busqueda_completa):
+        results = extract_magnets(browser.content)
+    else:
+        provider.log.error('>>>>>>>%s<<<<<<<' % browser.status)
+        provider.notify(message=browser.status, header=None, time=5000, image=settings.icon)
+        results = []
+    return results
         
 
 def search_episode(episode):
@@ -90,9 +100,17 @@ def search_episode(episode):
     capitulo = "%s%dX%02d%s%d%02d%s" % (" (",season, episodio, " OR ", season, episodio, " )")
     busqueda_completa =  nombre + capitulo + "/"
     pagina_busqueda = __proxy__ + 'usearch/'
-    resp = provider.GET(pagina_busqueda, params={"q": busqueda_completa.encode('utf-8'),})
-    return provider.extract_magnets(resp.data)
-        
+    busqueda_completa = busqueda_completa.encode('utf-8')
+#  resp = provider.GET(pagina_busqueda, params={"q": busqueda_completa.encode('utf-8'),})
+#   return provider.extract_magnets(resp.data)
+    provider.log.info(busqueda_completa)
+    if browser.open(busqueda_completa):
+        results = extract_magnets(browser.content)
+    else:
+        provider.log.error('>>>>>>>%s<<<<<<<' % browser.status)
+        provider.notify(message=browser.status, header=None, time=5000, image=settings.icon)
+        results = []
+    return results
 
 
 
@@ -157,9 +175,16 @@ def search_movie(movie):
 
     busqueda_completa = busqueda_completa.encode('utf-8')
 
-    resp = provider.GET(pagina_busqueda, params={"q": busqueda_completa,})
-    return provider.extract_magnets(resp.data)
-        
+##    resp = provider.GET(pagina_busqueda, params={"q": busqueda_completa,})
+# return provider.extract_magnets(resp.data)
+    provider.log.info(busqueda_completa)
+    if browser.open(busqueda_completa):
+        results = extract_magnets(browser.content)
+    else:
+        provider.log.error('>>>>>>>%s<<<<<<<' % browser.status)
+        provider.notify(message=browser.status, header=None, time=5000, image=settings.icon)
+        results = []
+    return results
    
 
 
